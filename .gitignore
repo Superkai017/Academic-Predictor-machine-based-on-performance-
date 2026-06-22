@@ -216,3 +216,5 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+data/clean/Academic_Predictor_cleaned.csv
+data/raw_data/Student Habits vs Academic Performance Study (ការសិក្សាអំពីទម្លាប់របស់និស្សិត និងលទ្ធផលសិក្សា) (Responses) - Form responses (2) - Student Habits vs Academic Performance Study (ការសិក្សាអំពីទម្លាប់របស់និស្សិត និងលទ្ធផ.csv
