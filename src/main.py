@@ -16,7 +16,7 @@ from tuning import grid_search
 
 
 # Where the Flask backend expects model artifacts
-BACKEND_MODELS_DIR = os.path.join(os.path.dirname(__file__), "backend", "models")
+BACKEND_MODELS_DIR = os.path.join(os.path.dirname(__file__))
 
 
 def train_pipeline(data_path: str = DATA_PATH):

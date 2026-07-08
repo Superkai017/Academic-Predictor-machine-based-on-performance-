@@ -3,7 +3,7 @@ config.py — Central configuration for the Academic Performance Classifier.
 """
 
 # ── Data ──────────────────────────────────────────────────────────────────────
-DATA_PATH = "../data/preprocessed/preprocessed_data(1).csv"
+DATA_PATH = r"C:\Users\MSI\ML-final-project\Academic-Predictor-machine-based-on-performance-\data\preprocessed\preprocessed_data(1).csv"
 
 TARGET_COL  = "Performance_Tier"
 DROP_COLS   = ["GPA", "Performance_Tier", "Available_Study_Time"]
