@@ -8,7 +8,7 @@
 [![React](https://img.shields.io/badge/React-frontend-61DAFB?logo=react)](https://react.dev/)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
-**Course:** ITM-390 Machine Learning — American University of Phnom Penh (AUPP)  
+**Course:** ITM-390 Machine Learning — American University of Phnom Penh (AUPP)
 **Advisor:** Dr. Kutha Pin · School of Digital Technologies
 
 ---
@@ -42,81 +42,67 @@ The final system includes:
 ## 🗂️ Project Structure
 
 ```
-cambodia-student-performance-ml/
+Academic-Predictor-machine-based-on-performance-/
+│
+├── .vscode/                            # Editor/workspace settings
+│
+├── backend/                            # FastAPI inference & recommendation service
+│   ├── __pycache__/
+│   ├── models/                         # Serialized/trained model artifacts
+│   ├── app.py                          # FastAPI app entry point
+│   ├── feature_config.py               # Feature schema & config constants
+│   ├── feature_engineering.py          # Feature transformation logic used at inference
+│   ├── prediction.py                   # GPA / tier prediction logic
+│   └── recommendations.py              # Habit-based recommendation logic
 │
 ├── data/
-│   ├── raw/                        # Raw survey responses (CSV export from Google Forms)
-│   ├── processed/                  # Cleaned & encoded datasets
-│   └── README.md                   # Data dictionary — all 24 features described
+│   ├── clean/
+│   │   └── CambodianStudyHabitandPerformanceCleaned(1).csv
+│   ├── preprocessed/
+│   │   └── preprocessed_data(1).csv
+│   └── raw_data/
+│       ├── cambodian_student_Study_habit_and_thier_performance - Academic_Predictor_Extended.csv
+│       └── Cambodian_Students_habit_and_performance.csv
 │
-├── notebooks/
-│   ├── 01_eda.ipynb                # Exploratory Data Analysis
-│   ├── 02_preprocessing.ipynb      # Cleaning, encoding, normalization
-│   ├── 03_feature_engineering.ipynb# Interaction terms, urban/rural flag, commute index
-│   ├── 04_regression_models.ipynb  # Linear, Ridge, Lasso, RF, GBM, SVR
-│   ├── 05_classification_models.ipynb # LR, RF, GBM, XGBoost, KNN
-│   └── 06_early_warning_system.ipynb  # Threshold-based at-risk flagging
+├── frontend/                           # React + Tailwind student/instructor web app
+│   ├── src/
+│   │   ├── index.html
+│   │   ├── input.css                   # Tailwind source stylesheet
+│   │   └── output.css                  # Compiled Tailwind output
+│   ├── .gitignore
+│   ├── package.json
+│   └── package-lock.json
 │
-├── src/
-│   ├── preprocessing/
-│   │   ├── cleaner.py              # Missing value imputation, label encoding
-│   │   └── scaler.py               # StandardScaler wrapper
-│   ├── features/
-│   │   └── engineer.py             # Interaction terms, derived features
-│   ├── models/
-│   │   ├── regression.py           # All regression model training & CV
-│   │   ├── classification.py       # All classification model training & CV
-│   │   └── early_warning.py        # Rule-based GPA < 2.0 flagging logic
-│   └── utils/
-│       └── metrics.py              # R², RMSE, MAE, F1-score helpers
+├── notebook/                           # Exploratory & modeling notebooks
+│   ├── data_inspect.ipynb
+│   ├── data_cleaning.ipynb
+│   ├── eda.ipynb
+│   ├── preprocessed.ipynb
+│   ├── regression_model.ipynb
+│   ├── classification_model.ipynb
+│   └── early_warning_system.ipynb
 │
-├── models/
-│   ├── best_regression_model.pkl   # Saved best regression model (e.g. Random Forest)
-│   └── best_classifier.pkl         # Saved best classification model
+├── src/                                # Core Python ML pipeline (training-side)
+│   ├── __pycache__/
+│   ├── config.py                       # Paths, constants, hyperparameter grids
+│   ├── data_loader.py                  # Data loading & train/test splitting
+│   ├── models.py                       # Model definitions (regression & classification)
+│   ├── tuning.py                       # GridSearchCV / hyperparameter tuning
+│   ├── evaluation.py                   # R², RMSE, MAE, Accuracy, F1 metrics
+│   ├── early_warning_system.py         # Rule-based GPA < 2.0 flagging logic
+│   └── main.py                         # Pipeline orchestration entry point
 │
-├── backend/
-│   ├── main.py                     # FastAPI app entry point
-│   ├── routes/
-│   │   ├── predict.py              # /predict endpoint (GPA regression)
-│   │   └── classify.py             # /classify endpoint (performance tier)
-│   ├── schemas.py                  # Pydantic request/response schemas
-│   └── requirements.txt            # Backend dependencies
-│
-├── frontend/
-│   ├── student-app/                # React app — Habit Mirror student interface
-│   │   ├── src/
-│   │   │   ├── components/
-│   │   │   │   ├── SurveyChat.jsx  # Chat-style survey input
-│   │   │   │   ├── GPAGauge.jsx    # Live animated GPA gauge
-│   │   │   │   └── ProfileCard.jsx # Shareable student result card
-│   │   │   └── App.jsx
-│   │   └── package.json
-│   └── instructor-app/             # React app — Instructor at-risk dashboard
-│       ├── src/
-│       │   ├── components/
-│       │   │   ├── Dashboard.jsx   # At-risk student table
-│       │   │   └── ExportPDF.jsx   # One-click intervention report export
-│       │   └── App.jsx
-│       └── package.json
-│
-├── reports/
-│   ├── proposal/                   # Original research proposal (PDF)
-│   └── figures/                    # EDA plots, feature importance charts, confusion matrices
-│
-├── survey/
-│   └── survey_link.md              # Link to bilingual Google Form survey
-│
-├── requirements.txt                # Python dependencies (ML + backend)
 ├── .gitignore
-└── README.md
+├── README.md
+└── requirements.txt                    # Python dependencies (ML + backend)
 ```
 
 ---
 
 ## 📊 Dataset
 
-**Source:** Original bilingual (English–Khmer) self-collected survey  
-**Target sample:** 300–500 responses from 9+ Cambodian universities  
+**Source:** Original bilingual (English–Khmer) self-collected survey
+**Target sample:** 300–500 responses from 9+ Cambodian universities
 **Survey link:** [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdm7Dtgzwja2H2GcT_GcC3Sz-fdmtxJr7OLkK051xtTKf1nNg/viewform)
 
 ### Features (24 total)
@@ -126,26 +112,31 @@ cambodia-student-performance-ml/
 | **Numerical** | Age, Cumulative GPA *(target)*, Self-study hours/day, Weekly tutoring hours, Social media hours/day, Gaming hours/day, Exercise days/week, Sleep hours/night, Academic stress level (1–10) |
 | **Categorical** | Gender, Hometown, University, Year of study, STEM major, Diet quality, Internet quality, Employment status, Study consistency, AI tool usage, Lecture attendance %, Commute duration, Study group frequency, Extracurricular activities, Academic tier *(target)* |
 
-> ⚠️ **Privacy:** Raw survey responses are not included in this repository. The processed anonymized dataset will be shared upon project completion.
+> ⚠️ **Privacy:** Raw survey responses are not included in this repository. The processed anonymized dataset is available under `data/clean/` and `data/preprocessed/`.
 
 ---
 
 ## 🔬 ML Pipeline
 
 ```
-Raw Survey Data
+Raw Survey Data (data/raw_data/)
       │
-      ├──► Data Preprocessing (EDA branch — no encoding)
-      │         └──► Exploratory Data Analysis
+      ├──► EDA (notebook/data_inspect.ipynb, notebook/eda.ipynb)
       │
-      └──► Data Preprocessing (Main branch)
-                └──► Feature Engineering
-                          └──► Feature Selection
-                                    └──► Modeling
-                                              ├──► Regression → Predict GPA (R², RMSE, MAE)
-                                              └──► Classification → Predict Tier (Accuracy, F1)
-                                                        └──► Model Evaluation & Selection
-                                                                  └──► Early Warning System
+      └──► Data Cleaning & Preprocessing
+                (notebook/data_cleaning.ipynb, notebook/preprocessed.ipynb
+                 → src/data_loader.py)
+                      │
+                      └──► Modeling (src/models.py, src/tuning.py)
+                                ├──► Regression → Predict GPA (R², RMSE, MAE)
+                                │      (notebook/regression_model.ipynb)
+                                └──► Classification → Predict Tier (Accuracy, F1)
+                                       (notebook/classification_model.ipynb)
+                                          │
+                                          └──► Evaluation (src/evaluation.py)
+                                                    │
+                                                    └──► Early Warning System
+                                                         (src/early_warning_system.py)
 ```
 
 ### Models Trained
@@ -170,8 +161,8 @@ Raw Survey Data
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/cambodia-student-performance-ml.git
-cd cambodia-student-performance-ml
+git clone https://github.com/your-username/Academic-Predictor-machine-based-on-performance-.git
+cd Academic-Predictor-machine-based-on-performance-
 ```
 
 ### 2. Install Python dependencies
@@ -183,29 +174,27 @@ pip install -r requirements.txt
 ### 3. Run the notebooks (in order)
 
 ```bash
-jupyter notebook notebooks/
+jupyter notebook notebook/
 ```
 
-### 4. Start the backend API
+### 4. Run the training pipeline (optional, regenerates models)
+
+```bash
+python src/main.py
+```
+
+### 5. Start the backend API
 
 ```bash
 cd backend
-uvicorn main:app --reload
+uvicorn app:app --reload
 # API docs available at http://localhost:8000/docs
 ```
 
-### 5. Start the student frontend
+### 6. Start the frontend
 
 ```bash
-cd frontend/student-app
-npm install
-npm run dev
-```
-
-### 6. Start the instructor dashboard
-
-```bash
-cd frontend/instructor-app
+cd frontend
 npm install
 npm run dev
 ```
