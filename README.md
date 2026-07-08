@@ -63,6 +63,10 @@ Academic-Predictor-machine-based-on-performance-/
 │   └── raw_data/
 │       ├── cambodian_student_Study_habit_and_thier_performance - Academic_Predictor_Extended.csv
 │       └── Cambodian_Students_habit_and_performance.csv
+│── models/ 
+│   ├── tier_classifier.pkl
+│   └── tier_scaler.pkl
+│   
 │
 ├── frontend/                           # React + Tailwind student/instructor web app
 │   ├── src/
