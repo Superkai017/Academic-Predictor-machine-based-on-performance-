@@ -8,6 +8,8 @@ src/backend/models/ so the Flask backend can load them for inference.
 import os
 import joblib
 
+from flask import Flask
+
 from config import DATA_PATH
 from data_loader import load_data, prepare_features
 from models import build_models
@@ -17,6 +19,13 @@ from tuning import grid_search
 
 # Where the Flask backend expects model artifacts
 BACKEND_MODELS_DIR = os.path.join(os.path.dirname(__file__))
+
+app = Flask(__name__)  # This exact variable 'app' is required
+
+
+@app.route("/")
+def home():
+   return "API running"
 
 
 def train_pipeline(data_path: str = DATA_PATH):
@@ -48,4 +57,4 @@ def train_pipeline(data_path: str = DATA_PATH):
 
 
 if __name__ == "__main__":
-    train_pipeline()
+    app.run()
