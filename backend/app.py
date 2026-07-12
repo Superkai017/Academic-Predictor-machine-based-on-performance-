@@ -44,8 +44,11 @@ FRONTEND INTEGRATION GUIDE:
         contains all data needed for a saved result entry.
 """
 
+import os
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
 
 from feature_config import (
     FEATURE_ORDER,
@@ -57,12 +60,24 @@ from feature_config import (
 from prediction import full_prediction
 
 
+# ── Environment config ───────────────────────────────────────────────────────
+# Loads backend/.env — see .env.example for available settings.
+# On hosting platforms (Render, etc.) set these as environment variables instead.
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+
+PORT = int(os.getenv("PORT", "5000"))
+DEBUG = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+# "*" allows all origins (dev only); otherwise a comma-separated list of URLs.
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*")
+
+
 # ── App setup ────────────────────────────────────────────────────────────────
 app = Flask(__name__)
 
-# Allow all origins during development.
-# TODO: Restrict to specific origin(s) in production.
-CORS(app)
+if CORS_ORIGINS == "*":
+    CORS(app)
+else:
+    CORS(app, origins=[o.strip() for o in CORS_ORIGINS.split(",")])
 
 
 # ── Input validation ─────────────────────────────────────────────────────────
@@ -267,6 +282,7 @@ def get_sample_students():
 # ── Entry point ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     print("Starting Academic Predictor Backend...")
+    print(f"  Port: {PORT} | Debug: {DEBUG} | CORS: {CORS_ORIGINS}")
     print("  Endpoints:")
     print("    GET  /api/health          — Health check")
     print("    POST /api/predict         — Run prediction")
@@ -274,4 +290,5 @@ if __name__ == "__main__":
     print("    GET  /api/classes         — Class labels")
     print("    GET  /api/sample-students — Sample profiles")
     print()
-    app.run(debug=True, port=5000)
+    # host=0.0.0.0 so hosting platforms can route external traffic to the app
+    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
