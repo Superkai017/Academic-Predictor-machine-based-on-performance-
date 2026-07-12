@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Academic Performance Predictor</title>
   <link href="./output.css" rel="stylesheet">
+  <!-- Environment config (backend URL) — edit env.js when deploying. -->
+  <script src="./env.js"></script>
   <!-- Apply saved theme before paint to avoid a flash of the wrong theme. -->
   <script>
     (function () {
@@ -135,7 +137,8 @@
   //  The backend is stateless, so results are persisted locally in IndexedDB.
   // ═══════════════════════════════════════════════════════════════════════════
 
-  const API_BASE = "http://localhost:5000";
+  // Backend URL comes from env.js (window.ENV) — falls back to localhost for dev.
+  const API_BASE = (window.ENV && window.ENV.API_BASE) || "http://localhost:5000";
 
   // Feature metadata fetched from /api/features (read inputs in this order).
   let FEATURES = [];
