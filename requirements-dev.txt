@@ -1,0 +1,52 @@
+# Full local development environment: training pipeline (src/), notebooks,
+# and experimentation. NOT installed on Vercel — deployment uses the slim
+# root requirements.txt instead.
+#
+# Install with: pip install -r requirements-dev.txt
+
+-r requirements.txt
+
+pandas>=2.2.0
+scipy>=1.13.0
+
+xgboost>=2.0.0
+lightgbm>=4.3.0
+imbalanced-learn>=0.12.0
+
+feature-engine>=1.8.0
+statsmodels>=0.14.0
+pingouin>=0.5.4
+
+shap>=0.45.0
+
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.22.0
+
+jupyter>=1.0.0
+jupyterlab>=4.1.0
+ipykernel>=6.29.0
+ipywidgets>=8.1.0
+
+fastapi>=0.111.0
+pydantic>=2.7.0
+python-multipart>=0.0.9
+httpx>=0.27.0
+
+reportlab>=4.2.0
+fpdf2>=2.7.9
+weasyprint>=62.0
+
+pydantic-settings>=2.2.0
+loguru>=0.7.2
+
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
+
+sqlalchemy>=2.0.0
+alembic>=1.13.0
+psycopg2-binary>=2.9.9
+
+gspread>=6.1.0
+google-auth>=2.29.0
+google-auth-oauthlib>=1.2.0

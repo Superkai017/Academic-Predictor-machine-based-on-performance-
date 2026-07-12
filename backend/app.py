@@ -45,10 +45,17 @@ FRONTEND INTEGRATION GUIDE:
 """
 
 import os
+import sys
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
+
+# Sibling modules (feature_config, prediction, ...) import each other by bare
+# name, which only works when backend/ is on sys.path. That's true when running
+# `python app.py` from this folder, but not when a host (e.g. Vercel) imports
+# this file as the package module "backend.app" — so add it explicitly.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from feature_config import (
     FEATURE_ORDER,
